@@ -1,0 +1,91 @@
+{% extends 'blog/base_blog.html' %}
+
+{% block header %}
+<h1>{% block title %}New Post{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <script>
+        function validateYouTubeUrl() {
+    var url = $('#youTubeUrl').val();
+    if (url != undefined || url != '') {
+        var regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|\?v=)([^#\&\?]*).*/;
+        var match = url.match(regExp);
+        if (match && match[2].length == 11) {
+            // Do anything for being valid
+            // if need to change the url to embed url then use below line
+            $('#videoObject').attr('src', 'https://www.youtube.com/embed/' + match[2] + '?autoplay=1&enablejsapi=1');
+        } else {
+            alert('not valid');
+            // Do anything for not being valid
+        }
+    }
+}
+    </script>
+
+    <main class="tm-main">
+        <form method="post"  enctype="multipart/form-data">
+        <div class="row tm-row tm-pt-20">
+            <div class="col-12">
+                <h5>Title</h5>
+                <input class="form-control tm-search-input" name="title" id="title" value="{{ request.form['title'] }}"
+                       type="text" placeholder="Title..." aria-label="Title" required>
+            </div>
+        </div>
+            <div class="row tm-row tm-pt-20">
+                <div class="col-12">
+                    <h5>Title image</h5>
+                    <input class="form-control tm-search-input" type=file
+                           accept=".jpg, .jpeg, .png" name=titleimage value="{{ request.form['titleimage'] }}" required>
+                </div>
+            </div>
+            <div class="row tm-row tm-pt-20">
+                <div class="col-12">
+                    <h5>Youtube video url</h5>
+                    <input class="form-control tm-search-input" name="yturl" id="yturl" value="{{ request.form['yturl'] }}"
+                           type="text" placeholder="Youtube embed url...">
+                </div>
+            </div>
+        <div class="row tm-row tm-pt-20">
+            <div class="col-12">
+                <h5>Description</h5>
+                <textarea class="form-control tm-search-input" name="description" id="description"
+                          value="{{ request.form['description'] }}" placeholder="Short Description..."
+                          aria-label="Short Description" required></textarea>
+            </div>
+        </div>
+        <div class="row tm-row tm-pt-20">
+            <div class="col-12">
+                <div class="bg-white mw9 shadow-5">
+                    <h5>Body</h5>
+                    <textarea name="ckeditor" id="ckeditor" value="{{ request.form['ckeditor'] }}"></textarea>
+                </div>
+            </div>
+
+            <script src='https://cdn.ckeditor.com/4.5.11/standard-all/ckeditor.js'></script>
+            <script  src="{{ url_for('static', filename='js/createpage.js') }}"></script>
+
+        </div>
+        <div class="row tm-row tm-pt-20 tm-mb-75">
+            <div class="tm-prev-next-wrapper">
+
+            </div>
+            <div class="tm-paging-wrapper">
+                <nav class="tm-paging-nav d-inline-block">
+                    <input class="mb-2 tm-btn tm-btn-primary tm-prev-next" value="Save" type="submit">
+                </nav>
+            </div>
+        </div>
+        </form>
+        <footer class="row tm-row">
+            <hr class="col-12">
+            <div class="col-md-6 col-12 tm-color-gray">
+                <!--                Design: <a rel="nofollow" target="_parent" href="https://templatemo.com" class="tm-external-link">TemplateMo</a>-->
+            </div>
+            <div class="col-md-6 col-12 tm-color-gray tm-copyright">
+                Copyright 2020 Debanjan Mondal
+            </div>
+        </footer>
+    </main>
+{% endblock %}
