@@ -13,8 +13,8 @@ import os
 
 bp = Blueprint('blog', __name__)
 
-uploads_dir = os.path.join(bp.root_path, '/static/uploads')
-os.makedirs(uploads_dir, exist_ok=True)
+# uploads_dir = os.path.join(bp.root_path, '/static/uploads')
+# os.makedirs(uploads_dir, exist_ok=True)
 
 def convertToBinaryData(filename):
     #Convert digital data to binary format
@@ -116,7 +116,7 @@ def create():
             )
             db.commit()
             fname = str(cur.lastrowid)+"."+titleimage.filename.rsplit('.', 1)[1].lower()
-            titleimage.save(os.path.join(uploads_dir, fname))
+            # titleimage.save(os.path.join(uploads_dir, fname))
 
             return redirect(url_for('blog.index'))
 
